@@ -1,0 +1,197 @@
+Cidade:
+Ampére
+Pérola D'oeste
+Pranchita
+Realeza
+Capanema
+Bela Vista do Caroba
+Planalto
+Santa Izabel do Oeste
+Salto do Lontra
+Boa Esperança do Iguaçu
+Bom Jesus do Sul
+Dois Vizinhos
+São Jorge D'oeste
+Pinhal de São Bento
+Nova Prata do Iguaçu
+Manfrinópolis
+Santo Antônio do Sudoeste
+Francisco Beltrão
+Enéas Marques
+Marmeleiro
+Cruzeiro do Iguaçu
+Barracão
+Renascença
+Verê
+Salgado Filho
+Flor da Serra do Sul
+Nova Esperança do Sudoeste
+Itapejara D'oeste
+Bom Sucesso do Sul
+Saudade do Iguaçu
+Mariópolis
+Chopinzinho
+Pato Branco
+Coronel Vivida
+Sulina
+Vitorino
+São João
+Rota:
+Planalto,Capanema,8.2
+Capanema,Planalto,8.2
+Planalto,Realeza,28.8
+Realeza,Planalto,28.8
+Capanema,Realeza,55.5
+Realeza,Capanema,55.5
+Pérola D'oeste,Planalto,19
+Planalto,Pérola D'oeste,19
+Pranchita,Pérola D'oeste,24.5
+Pérola D'oeste,Pranchita,24.5
+Pérola D'oeste,Bela Vista do Caroba,13.8
+Bela Vista do Caroba,Pérola D'oeste,13.8
+Bela Vista do Caroba,Pranchita,22.1
+Pranchita,Bela Vista do Caroba,22.1
+Ampére,Bela Vista do Caroba,26.5
+Bela Vista do Caroba,Ampére,26.5
+Santo Antônio do Sudoeste,Pranchita,7.5
+Pranchita,Santo Antônio do Sudoeste,7.5
+Pranchita,Ampére,41.4
+Ampére,Pranchita,41.4
+Pinhal de São Bento,Santo Antônio do Sudoeste,36
+Santo Antônio do Sudoeste,Pinhal de São Bento,36
+Pinhal de São Bento,Pranchita,38.2
+Pranchita,Pinhal de São Bento,38.2
+Bom Jesus do Sul,Santo Antônio do Sudoeste,23.5
+Santo Antônio do Sudoeste,Bom Jesus do Sul,23.5
+Barracão,Bom Jesus do Sul,10.2
+Bom Jesus do Sul,Barracão,10.2
+Barracão,Flor da Serra do Sul,37.2
+Flor da Serra do Sul,Barracão,37.2
+Bom Jesus do Sul,Salgado Filho,37.5
+Salgado Filho,Bom Jesus do Sul,37.5
+Santo Antônio do Sudoeste,Pinhal de São Bento,36
+Pinhal de São Bento,Santo Antônio do Sudoeste,36
+Salgado Filho,Flor da Serra do Sul,14.8
+Flor da Serra do Sul,Salgado Filho,14.8
+Flor da Serra do Sul,Manfrinópolis,20.8
+Manfrinópolis,Flor da Serra do Sul,20.8
+Flor da Serra do Sul,Francisco Beltrão,50.1
+Francisco Beltrão,Flor da Serra do Sul,50.1
+Flor da Serra do Sul,Marmeleiro,34.9
+Marmeleiro,Flor da Serra do Sul,34.9
+Francisco Beltrão,Marmeleiro,9.6
+Marmeleiro,Francisco Beltrão,9.6
+Renascença,Marmeleiro,6.4
+Marmeleiro,Renascença,6.4
+Renascença,Bom Sucesso do Sul,22.5
+Bom Sucesso do Sul,Renascença,22.5
+Renascença,Vitorino,26.6
+Vitorino,Renascença,26.6
+Vitorino,Mariópolis,40.1
+Mariópolis,Vitorino,40.1
+Vitorino,Pato Branco,15
+Pato Branco,Vitorino,15
+Pato Branco,Bom Sucesso do Sul,34
+Bom Sucesso do Sul,Pato Branco,34
+Pato Branco,Mariópolis,25
+Mariópolis,Pato Branco,25
+Pato Branco,Itapejara D'oeste,39.4
+Itapejara D'oeste,Pato Branco,39.4
+Pato Branco,Coronel Vivida,35.2
+Coronel Vivida,Pato Branco,35.2
+Coronel Vivida,Itapejara D'oeste,32.5
+Itapejara D'oeste,Coronel Vivida,32.5
+Coronel Vivida,Chopinzinho,19.3
+Chopinzinho,Coronel Vivida,19.3
+Coronel Vivida,São João,31.5
+São João,Coronel Vivida,31.5
+Chopinzinho,Saudade do Iguaçu,25.2
+Saudade do Iguaçu,Chopinzinho,25.2
+Chopinzinho,Sulina,40.9
+Sulina,Chopinzinho,40.9
+Chopinzinho,São João,22.4
+São João,Chopinzinho,22.4
+Saudade do Iguaçu,Sulina,14.5
+Sulina,Saudade do Iguaçu,14.5
+São João,Sulina,19.1
+Sulina,São João,19.1
+São João,São Jorge D'oeste,31.5
+São Jorge D'oeste,São João,31.5
+São João,Verê,40.3
+Verê,São João,40.3
+São Jorge D'oeste,Verê,28.3
+Verê,São Jorge D'oeste,28.3
+São Jorge D'oeste,Dois Vizinhos,23.1
+Dois Vizinhos,São Jorge D'oeste,23.1
+Dois Vizinhos,Cruzeiro do Iguaçu,21.8
+Cruzeiro do Iguaçu,Dois Vizinhos,21.8
+Cruzeiro do Iguaçu,Boa Esperança do Iguaçu,13.7
+Boa Esperança do Iguaçu,Cruzeiro do Iguaçu,13.7
+Boa Esperança do Iguaçu,Dois Vizinhos,33.1
+Dois Vizinhos,Boa Esperança do Iguaçu,33.1
+Boa Esperança do Iguaçu,Salto do Lontra,26.1
+Salto do Lontra,Boa Esperança do Iguaçu,26.1
+Boa Esperança do Iguaçu,Nova Prata do Iguaçu,16.1
+Nova Prata do Iguaçu,Boa Esperança do Iguaçu,16.1
+Nova Prata do Iguaçu,Realeza,50.4
+Realeza,Nova Prata do Iguaçu,50.4
+Nova Prata do Iguaçu,Santa Izabel do Oeste,40.9
+Santa Izabel do Oeste,Nova Prata do Iguaçu,40.9
+Santa Izabel do Oeste,Realeza,7.4
+Realeza,Santa Izabel do Oeste,7.4
+Realeza,Ampére,22.9
+Ampére,Realeza,22.9
+Santa Izabel do Oeste,Ampére,15.2
+Ampére,Santa Izabel do Oeste,15.2
+Santa Izabel do Oeste,Salto do Lontra,21.5
+Salto do Lontra,Santa Izabel do Oeste,21.5
+Santa Izabel do Oeste,Nova Esperança do Sudoeste,35.7
+Nova Esperança do Sudoeste,Santa Izabel do Oeste,35.7
+Ampére,Pinhal de São Bento,17.6
+Pinhal de São Bento,Ampére,17.6
+Ampére,Nova Esperança do Sudoeste,50.2
+Nova Esperança do Sudoeste,Ampére,50.2
+Ampére,Francisco Beltrão,57.9
+Francisco Beltrão,Ampére,57.9
+Pinhal de São Bento,Salgado Filho,34.3
+Salgado Filho,Pinhal de São Bento,34.3
+Pinhal de São Bento,Manfrinópolis,35.5
+Manfrinópolis,Pinhal de São Bento,35.5
+Salgado Filho,Manfrinópolis,10.4
+Manfrinópolis,Salgado Filho,10.4
+Francisco Beltrão,Manfrinópolis,33.9
+Manfrinópolis,Francisco Beltrão,33.9
+Nova Esperança do Sudoeste,Francisco Beltrão,49.5
+Francisco Beltrão,Nova Esperança do Sudoeste,49.5
+Nova Esperança do Sudoeste,Enéas Marques,13.2
+Enéas Marques,Nova Esperança do Sudoeste,13.2
+Nova Esperança do Sudoeste,Salto do Lontra,16.9
+Salto do Lontra,Nova Esperança do Sudoeste,16.9
+Enéas Marques,Salto do Lontra,43.6
+Salto do Lontra,Enéas Marques,43.6
+Enéas Marques,Francisco Beltrão,24.1
+Francisco Beltrão,Enéas Marques,24.1
+Enéas Marques,Dois Vizinhos,35.7
+Dois Vizinhos,Enéas Marques,35.7
+Enéas Marques,Verê,33.9
+Verê,Enéas Marques,33.9
+Francisco Beltrão,Verê,34
+Verê,Francisco Beltrão,34
+Francisco Beltrão,Itapejara D'oeste,35.7
+Itapejara D'oeste,Francisco Beltrão,35.7
+Francisco Beltrão,Bom Sucesso do Sul,27.3
+Bom Sucesso do Sul,Francisco Beltrão,27.3
+Itapejara D'oeste,Bom Sucesso do Sul,15.2
+Bom Sucesso do Sul,Itapejara D'oeste,15.2
+Bela Vista do Caroba,Planalto,27.3
+Planalto,Bela Vista do Caroba,27.3
+Verê,Dois Vizinhos,25.9
+Dois Vizinhos,Verê,25.9
+Verê,São João,30.1
+São João,Verê,30.1
+Verê,Itapejara D'oeste,15.1
+Itapejara D'oeste,Verê,15.1
+Pato Branco,Itapejara D'oeste,37.6
+Itapejara D'oeste,Pato Branco,37.6
+Pato Branco,Coronel Vivida,34.6
+Coronel Vivida,Pato Branco,34.6
