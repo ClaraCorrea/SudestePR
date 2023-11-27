@@ -30,7 +30,7 @@ public class ValidationService {
         List<Cidade> cidades = new ArrayList<>();
         List<Rota> rotas = new ArrayList<>();
 
-        File dataSource = new File("src\\main\\resources\\dataSource.txt");
+        File dataSource = new File("src\\main\\resources\\DataValues.txt");
         if (!dataSource.exists()) {
             return new CustomResponse(false, "File not found!");
         }
@@ -93,7 +93,7 @@ public class ValidationService {
         return null;
     }
 
-    @PostConstruct
+//    @PostConstruct 
     public void inicializar() throws FileNotFoundException, IOException {
         if (validationDB()) {
             postAll();

@@ -17,6 +17,8 @@ public class Grafo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	
     private List<Cidade> cidades;
     private List<Rota> rotas;
 
