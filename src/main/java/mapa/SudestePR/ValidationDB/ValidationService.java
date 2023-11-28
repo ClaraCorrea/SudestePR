@@ -8,7 +8,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import mapa.SudestePR.DTO.CidadeDtoRequest;
+import mapa.SudestePR.DTO.RotaDtoRequest;
+import mapa.SudestePR.Service.CidadeService;
+import mapa.SudestePR.Service.RotaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import jakarta.annotation.PostConstruct;
@@ -20,11 +25,20 @@ import mapa.SudestePR.Repository.RotaRepository;
 
 @Service
 public class ValidationService {
-	
+
 	@Autowired
     private CidadeRepository cidadeRepository;
     @Autowired
     private RotaRepository rotaRepository;
+
+    @Autowired
+    private CidadeService cidadeService;
+    @Autowired
+    private RotaService rotaService;
+
+    private CidadeDtoRequest cidadeDtoRequest;
+    private RotaDtoRequest rotaDtoRequest;
+
 
     public CustomResponse postAll() throws FileNotFoundException, IOException {
         List<Cidade> cidades = new ArrayList<>();
@@ -44,7 +58,7 @@ public class ValidationService {
                     currentSection = line.substring(0, line.length() - 1);
                 } else if ("Cidade".equals(currentSection)) {
                     processarLinhaCidade(line, cidades);
-                } else if ("Rotas".equals(currentSection)) {
+                } else if ("Rota".equals(currentSection)) {
                     processarLinhaRota(line, rotas, cidades);
                 }
             }
@@ -66,21 +80,28 @@ public class ValidationService {
         String[] parts = line.split(",");
         if (parts.length == 1) {
             String nome = parts[0].trim();
-            cidades.add(new Cidade(nome));
+            CidadeDtoRequest cidadeDto = new CidadeDtoRequest();
+            cidadeDto.setNome(nome);
+            cidadeService.saveCidade(cidadeDto);
         }
     }
 
     private void processarLinhaRota(String line, List<Rota> rotas, List<Cidade> cidades) {
         String[] parts = line.split(",");
         if (parts.length == 3) {
-            String cidadeInicioS = parts[0].trim();
-            String cidadeFimS = parts[1].trim();
+            String cidadeInicioST = parts[0].trim();
+            String cidadeFimST = parts[1].trim();
             Double distancia = Double.parseDouble(parts[2].trim());
             
-            Cidade cidadeInicio = getCidadePorNome(cidades, cidadeInicioS);
-            Cidade cidadeFim = getCidadePorNome(cidades, cidadeFimS);
-            
-            rotas.add(new Rota(distancia, cidadeInicio, cidadeFim));
+            Cidade cidadeInicio = getCidadePorNome(cidades, cidadeInicioST);
+            Cidade cidadeFim = getCidadePorNome(cidades, cidadeFimST);
+
+            RotaDtoRequest rotaDto = new RotaDtoRequest();
+            rotaDto.setDistancia(distancia);
+            rotaDto.setCidadeInicio(cidadeInicio);
+            rotaDto.setCidadeFim(cidadeFim);
+
+            rotaService.saveRota(rotaDto);
         }
     }
     
@@ -93,7 +114,7 @@ public class ValidationService {
         return null;
     }
 
-//    @PostConstruct 
+    @PostConstruct
     public void inicializar() throws FileNotFoundException, IOException {
         if (validationDB()) {
             postAll();

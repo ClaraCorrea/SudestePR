@@ -13,7 +13,7 @@ public class RotaService {
 	@Autowired
 	private RotaRepository rotaRepository;
 	
-	public void saveCidade(RotaDtoRequest rotaDtoRequest) {
+	public void saveRota(RotaDtoRequest rotaDtoRequest) {
 		Rota rota = new Rota(
 				rotaDtoRequest.getDistancia(),
 				rotaDtoRequest.getCidadeInicio(),

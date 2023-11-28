@@ -11,18 +11,11 @@ import java.util.PriorityQueue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import mapa.SudestePR.DTO.CidadeDtoRequest;
-import mapa.SudestePR.DTO.GrafoDtoResponse;
 import mapa.SudestePR.Entity.Cidade;
-import mapa.SudestePR.Entity.Grafo;
 import mapa.SudestePR.Entity.Rota;
-import mapa.SudestePR.Repository.GrafoRepository;
 
 @Service
 public class GrafoService {
-	
-	@Autowired
-	private GrafoRepository grafoRepository;
 	@Autowired
 	private CidadeService cidadeService;
 	
@@ -57,8 +50,6 @@ public class GrafoService {
         this.rotas.add(rota);
     }
 
-
-    
     public List<Cidade> calcularMenorDistancia(String nomeCidadeInicio, String nomeCidadeFim) {
         Cidade cidadeInicio = this.getCidade(nomeCidadeInicio);
         Cidade cidadeFim = this.getCidade(nomeCidadeFim);
@@ -101,16 +92,4 @@ public class GrafoService {
 
         return caminho;
     }
-    
-	public GrafoDtoResponse getById(Long id){
-		Grafo grafoGet =  grafoRepository.findById(id).orElseThrow();
-		GrafoDtoResponse carDtoResponse = extracted(grafoGet);
-			return carDtoResponse;
-	}
-	
-	private GrafoDtoResponse extracted(Grafo grafoGet) {
-		GrafoDtoResponse grafoDtoResponse = new GrafoDtoResponse();
-		return grafoDtoResponse;
-	}
-
 }

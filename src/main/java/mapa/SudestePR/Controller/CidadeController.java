@@ -1,22 +1,23 @@
 package mapa.SudestePR.Controller;
 
+import mapa.SudestePR.Entity.Cidade;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import mapa.SudestePR.DTO.CidadeDtoRequest;
 import mapa.SudestePR.Service.CidadeService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/cidade")
 public class CidadeController {
 	@Autowired
 	private CidadeService cidadeService;
-	
-	@PostMapping("/post")
-	public void postCidade(@RequestBody CidadeDtoRequest cidadeDto) {
-		cidadeService.saveCidade(cidadeDto);
+
+	@GetMapping("/getCars")
+	public ResponseEntity<List<Cidade>> getRandomCars() {
+		List<Cidade> cidades = cidadeService.getCidades();
+		return ResponseEntity.ok(cidades);
 	}
 }

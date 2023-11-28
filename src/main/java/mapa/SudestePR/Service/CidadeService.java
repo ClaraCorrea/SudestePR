@@ -34,4 +34,9 @@ public class CidadeService {
     public void adicionarArestaSaida(Rota rotaS) {
         this.rotasEntrada.add(rotaS);
     }
+
+    public List<Cidade> getCidades() {
+        List<Cidade> cidades = cidadeRepository.findAll();
+        return cidades;
+    }
 }
