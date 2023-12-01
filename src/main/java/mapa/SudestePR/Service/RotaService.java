@@ -10,9 +10,13 @@ import mapa.SudestePR.DTO.RotaDtoRequest;
 import mapa.SudestePR.Entity.Rota;
 import mapa.SudestePR.Repository.RotaRepository;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static org.aspectj.runtime.internal.Conversions.intValue;
 
 @Service
 public class RotaService {
@@ -62,16 +66,49 @@ public class RotaService {
                 }
             }
             Double gastoGasolina = gastoGasolina(veiculo, dist);
-            String tempoViagem = converterHoras(dist);
-            Double alimentacao = calculoAlimentacao(tempoViagem);
+            String tempo = calculoTempo(veiculo, dist);
+            Double alimentacao = calculoAlimentacao(tempo);
             if (alimentacao > 0){
-                return new RotaResponse(true, rotaCompleta, dist, tempoViagem, gastoGasolina, alimentacao,  "Operação realizada com sucesso!");
+                return new RotaResponse(true, rotaCompleta, dist, tempo, gastoGasolina, alimentacao,  "Operação realizada com sucesso!");
             } else {
-                return new RotaResponse(true, rotaCompleta, dist, tempoViagem, gastoGasolina, alimentacao,  "Operação realizada com sucesso!");
+                return new RotaResponse(true, rotaCompleta, dist, tempo, gastoGasolina, alimentacao,  "Operação realizada com sucesso!");
             }
         } else {
             return new RotaResponse(false,null, null, null, null, null, "Operação falhou! Caminho não encontrado");
         }
+    }
+
+    public String calculoTempo (String veiculo, Double dist){
+        int horas =0;
+        int minutos =0;
+        switch (veiculo) {
+            case "carro":
+                Double tempo = (dist / 90);
+                horas = converterHoras(tempo);
+                minutos = converterMinutos(horas);
+                break;
+            case "motocicleta":
+                tempo = (dist / 95);
+                horas = converterHoras(tempo);
+                minutos = converterMinutos(horas);
+                break;
+            case "ônibus":
+                tempo = (dist / 80);
+                horas = converterHoras(tempo);
+                minutos = converterMinutos(horas);
+                break;
+            case "micro-ônibus":
+                tempo = (dist / 85);
+                horas = converterHoras(tempo);
+                minutos = converterMinutos(horas);
+                break;
+            case "caminhão":
+                tempo = (dist / 75);
+                horas = converterHoras(tempo);
+                minutos = converterMinutos(horas);
+                break;
+        }
+        return (horas+":"+minutos);
     }
 
     private Double gastoGasolina(String veiculo, Double distanciaTotal) {
@@ -93,30 +130,45 @@ public class RotaService {
 
 
     private Double calculoAlimentacao(String tempo) {
-        int tempoInt = Integer.parseInt(tempo);
-        int tempoT = (int) Math.floor(tempoInt / 3);
+        Pattern pattern = Pattern.compile("(\\d+):(\\d+)");
+        Matcher matcher = pattern.matcher(tempo);
+
+        int horas = 0;
+        if (matcher.matches()) {
+            horas = Integer.parseInt(matcher.group(1));
+        } else {
+            System.err.println("Formato inválido para tempo.");
+        }
+
+        int tempoT = (int) Math.floor(horas / 3);
         int contador = 0;
         int paradas = 0;
         Double valorGasto = 0.0;
 
         for (int i = 1; i <= tempoT; i++) {
             contador++;
+            System.out.println("Contador - fora if: " + contador);
             if (contador == 3) {
+                System.out.println("Contador - dentro if: " + contador);
                 paradas++;
                 contador = 0;
+                System.out.println("Contador final if: " + contador);
             }
         }
         valorGasto = (double) (paradas * 51); // Considerando que o veículo possuirá 2 indivíduos  e cada um gaste 25.50
         return valorGasto;
     }
 
-    private String converterHoras(Double tempo) {
+    private int converterHoras(Double tempo) {
         int horas = tempo.intValue();
-        int minutos = (int) ((tempo - horas) * 60);
+        System.out.println("ConverterHoras "+horas);
+        return (horas);
+    }
 
-        String resultado = String.format("%02d:%02d", horas, minutos);
-
-        return resultado;
+    private int converterMinutos(int horas){
+        int minutos = (int) ((horas - horas) * 60);
+        System.out.println("ConverterMinutos "+minutos);
+        return minutos;
     }
 
     public Double gastoGasolinaCarro(Double distanciaTotal){
