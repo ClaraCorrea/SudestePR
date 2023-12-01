@@ -26,13 +26,19 @@ public class GrafoService {
     private static final Logger logger = LoggerFactory.getLogger(GrafoService.class);
 
     private List<Cidade> cidades = new ArrayList<>();
-    private final List<Rota> rotas = new ArrayList<>();
+    private List<Rota> rotas = new ArrayList<>();
 
 
     // Método para atribuir cidades quando necessário
     private void carregarCidades() {
         if (cidades.isEmpty()) {
             this.cidades = cidadeService.getCidades();
+        }
+    }
+
+    private void carregarRotas() {
+        if (rotas.isEmpty()) {
+            this.rotas = rotaService.getRotas();
         }
     }
 
@@ -60,6 +66,7 @@ public class GrafoService {
 
     public List<Rota> calcularMenorDistancia(String cidadeInicio, String cidadeFim) {
         carregarCidades();
+        carregarRotas();
 
         Long cidadeInicioC = getIdCidadeByNome(cidadeInicio);
         Long cidadeFimC = getIdCidadeByNome(cidadeFim);
@@ -157,7 +164,7 @@ public class GrafoService {
 
         }
 
-        System.out.println(caminho);
+        System.out.println("CAMINHO NO FINAL: "+caminho);
         return caminho;
     }
 

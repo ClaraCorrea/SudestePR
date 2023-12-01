@@ -44,6 +44,7 @@ public class RotaService {
         System.out.println(cidadeFim);
 
         List<Rota> caminho = grafoService.calcularMenorDistancia(cidadeInicio, cidadeFim);
+        System.out.println("COMO CAMINHO CHEGA EM ROTASERVICE: "+caminho);
 
         if (caminho != null && !caminho.isEmpty()) {
             List<Rota> rotaCompleta = new ArrayList<>();
@@ -56,15 +57,15 @@ public class RotaService {
 
                 if (caminho.get(i) != null && caminho.get(i + 1) != null) {
                     System.out.println("Entrou no IF!");
-                    Long id = caminho.get(i).getId();
-                    Cidade cidadeAtual = cidadeService.getById(id);
-                    Long proximoId = caminho.get(i + 1).getId();
-                    Cidade proximaCidade = cidadeService.getById(proximoId);
+                    Cidade cidadeAtual = caminho.get(i).getCidadeInicio();
+                    Cidade proximaCidade = caminho.get(i).getCidadeFim();
 
                     System.out.println("Cidade Atual: (dentro do for caminho.size)" + cidadeAtual);
 
                     if (cidadeAtual != null && proximaCidade != null) {
+                        System.out.println("ENTROU NO IF DENTRO DE FOR");
                         Rota rota = grafoService.getRotaEntreCidades(cidadeAtual, proximaCidade);
+                        System.out.println("Rota: (dentro do IF EM for caminho.size:)" + rota);
                         rotaCompleta.add(rota);
                     } else {
                         return new RotaResponse(false, null, null, "Operação falhou! Cidade não encontrada");
@@ -78,10 +79,5 @@ public class RotaService {
         } else {
             return new RotaResponse(false, null, Collections.emptyList(), "Operação falhou! Caminho não encontrado");
         }
-    }
-
-    public List<Rota> getRotas() {
-        List<Rota> rotas = rotaRepository.findAll();
-        return rotas;
     }
 }
