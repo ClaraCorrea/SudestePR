@@ -15,7 +15,7 @@ public class CidadeController {
 	@Autowired
 	private CidadeService cidadeService;
 
-	@GetMapping("/getCars")
+	@GetMapping("/getCidades")
 	public ResponseEntity<List<Cidade>> getRandomCars() {
 		List<Cidade> cidades = cidadeService.getCidades();
 		return ResponseEntity.ok(cidades);

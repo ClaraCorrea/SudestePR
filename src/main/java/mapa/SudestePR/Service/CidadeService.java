@@ -39,4 +39,13 @@ public class CidadeService {
         List<Cidade> cidades = cidadeRepository.findAll();
         return cidades;
     }
+
+    public boolean cidadeExiste(String nomeCidade) {
+        return cidadeRepository.existsByNome(nomeCidade);
+    }
+
+    public Cidade getById(Long id) {
+        return cidadeRepository.findCidadeById(id);
+    }
+
 }

@@ -8,6 +8,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @Entity
@@ -34,5 +35,15 @@ public class Rota {
         this.distancia = distancia;
         this.cidadeInicio = cidadeInicio;
         this.cidadeFim = cidadeFim;
+    }
+
+    @Override
+    public String toString() {
+        return "Rota{" +
+                "id=" + id +
+                ", distancia=" + distancia +
+                ", cidadeInicio=" + (cidadeInicio != null ? cidadeInicio.getId() : null) +
+                ", cidadeFim=" + (cidadeFim != null ? cidadeFim.getId() : null) +
+                '}';
     }
 }

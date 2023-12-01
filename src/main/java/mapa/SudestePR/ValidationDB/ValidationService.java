@@ -11,6 +11,7 @@ import java.util.List;
 import mapa.SudestePR.DTO.CidadeDtoRequest;
 import mapa.SudestePR.DTO.RotaDtoRequest;
 import mapa.SudestePR.Service.CidadeService;
+import mapa.SudestePR.Service.GrafoService;
 import mapa.SudestePR.Service.RotaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -89,12 +90,12 @@ public class ValidationService {
     private void processarLinhaRota(String line, List<Rota> rotas, List<Cidade> cidades) {
         String[] parts = line.split(",");
         if (parts.length == 3) {
-            String cidadeInicioST = parts[0].trim();
-            String cidadeFimST = parts[1].trim();
+            String cidadeInicioST = parts[1].trim();
+            String cidadeFimST = parts[0].trim();
             Double distancia = Double.parseDouble(parts[2].trim());
             
-            Cidade cidadeInicio = getCidadePorNome(cidades, cidadeInicioST);
-            Cidade cidadeFim = getCidadePorNome(cidades, cidadeFimST);
+            Cidade cidadeInicio = getCidadePorNome(cidadeInicioST);
+            Cidade cidadeFim = getCidadePorNome(cidadeFimST);
 
             RotaDtoRequest rotaDto = new RotaDtoRequest();
             rotaDto.setDistancia(distancia);
@@ -104,9 +105,11 @@ public class ValidationService {
             rotaService.saveRota(rotaDto);
         }
     }
-    
-    private Cidade getCidadePorNome(List<Cidade> cidades, String nome) {
-        for (Cidade cidade : cidades) {
+
+
+    private Cidade getCidadePorNome(String nome) {
+        List<Cidade> cidadesList = cidadeRepository.findAll();
+        for (Cidade cidade : cidadesList) {
             if (cidade.getNome().equals(nome)) {
                 return cidade;
             }
@@ -116,13 +119,17 @@ public class ValidationService {
 
     @PostConstruct
     public void inicializar() throws FileNotFoundException, IOException {
-        if (validationDB()) {
+        if (validationDBCidade() && validationDBRota()) {
             postAll();
         }
     }
 
-    public boolean validationDB() {
-        return cidadeRepository.count() == 0 && rotaRepository.count() == 0;
+    private boolean validationDBRota() {
+        return rotaRepository.count() == 0;
+    }
+
+    public boolean validationDBCidade() {
+        return cidadeRepository.count() == 0;
     }
 
 }

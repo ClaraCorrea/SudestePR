@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @NoArgsConstructor
@@ -23,9 +24,11 @@ public class Cidade {
     @Column(name = "nome")
     private String nome;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "cidadeInicio")
     private List<Rota> rotasSaida;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "cidadeFim")
     private List<Rota> rotasEntrada;
 
