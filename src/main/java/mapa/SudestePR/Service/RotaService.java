@@ -35,49 +35,112 @@ public class RotaService {
     }
 
     public RotaResponse getRota(RotaDtoResponse rotaDtoResponse) {
+        String veiculo = rotaDtoResponse.getVeiculo();
         String cidadeInicio = rotaDtoResponse.getCidadeInicio();
         String cidadeFim = rotaDtoResponse.getCidadeFim();
-        String veiculo = rotaDtoResponse.getVeiculo();
-
-        System.out.println(veiculo);
-        System.out.println(cidadeInicio);
-        System.out.println(cidadeFim);
+        Double dist= 0.0;
 
         List<Rota> caminho = grafoService.calcularMenorDistancia(cidadeInicio, cidadeFim);
-        System.out.println("COMO CAMINHO CHEGA EM ROTASERVICE: "+caminho);
 
         if (caminho != null && !caminho.isEmpty()) {
             List<Rota> rotaCompleta = new ArrayList<>();
 
-            for (int i = 0; i < caminho.size() - 1; i++) {
-                System.out.println("Tamanho do Caminho: " + caminho.size());
-                System.out.println("Índice Atual no Loop: " + i);
-                System.out.println("caminho.get(i) != null? " + caminho.get(i));
-                System.out.println("caminho.get(i + 1) != null? " + caminho.get(i + 1));
-
-                if (caminho.get(i) != null && caminho.get(i + 1) != null) {
-                    System.out.println("Entrou no IF!");
+            for (int i = 0; i < caminho.size(); i++) {
+                if (caminho.get(i) != null) {
                     Cidade cidadeAtual = caminho.get(i).getCidadeInicio();
                     Cidade proximaCidade = caminho.get(i).getCidadeFim();
 
-                    System.out.println("Cidade Atual: (dentro do for caminho.size)" + cidadeAtual);
-
-                    if (cidadeAtual != null && proximaCidade != null) {
-                        System.out.println("ENTROU NO IF DENTRO DE FOR");
+                    if (cidadeAtual != null) {
                         Rota rota = grafoService.getRotaEntreCidades(cidadeAtual, proximaCidade);
-                        System.out.println("Rota: (dentro do IF EM for caminho.size:)" + rota);
                         rotaCompleta.add(rota);
+                        dist = dist + rota.getDistancia();
                     } else {
-                        return new RotaResponse(false, null, null, "Operação falhou! Cidade não encontrada");
+                        return new RotaResponse(false, null, null, null, null, null,"Operação falhou! Cidade não encontrada");
                     }
                 } else {
-                    return new RotaResponse(false, null, null, "Operação falhou! Elemento nulo encontrado");
+                    return new RotaResponse(false, null, null, null, null, null, "Operação falhou! Elemento nulo encontrado");
                 }
             }
-
-            return new RotaResponse(true, null, rotaCompleta, "Operação realizada com sucesso!");
+            Double gastoGasolina = gastoGasolina(veiculo, dist);
+            String tempoViagem = converterHoras(dist);
+            Double alimentacao = calculoAlimentacao(tempoViagem);
+            if (alimentacao > 0){
+                return new RotaResponse(true, rotaCompleta, dist, tempoViagem, gastoGasolina, alimentacao,  "Operação realizada com sucesso!");
+            } else {
+                return new RotaResponse(true, rotaCompleta, dist, tempoViagem, gastoGasolina, alimentacao,  "Operação realizada com sucesso!");
+            }
         } else {
-            return new RotaResponse(false, null, Collections.emptyList(), "Operação falhou! Caminho não encontrado");
+            return new RotaResponse(false,null, null, null, null, null, "Operação falhou! Caminho não encontrado");
         }
+    }
+
+    private Double gastoGasolina(String veiculo, Double distanciaTotal) {
+        if(veiculo.equalsIgnoreCase("carro")){
+            return gastoGasolinaCarro(distanciaTotal);
+        } else if(veiculo.equalsIgnoreCase("motocicleta")){
+            return gastoGasolinaMoto(distanciaTotal);
+        } else if(veiculo.equalsIgnoreCase("micro-ônibus")){
+            return gastoGasolinaMicroOnibus(distanciaTotal);
+        } else if (veiculo.equalsIgnoreCase("ônibus")) {
+            return gastoGasolinaOnibus(distanciaTotal);
+        } else if (veiculo.equalsIgnoreCase("caminhão")) {
+            return gastoGasolinaCaminhao(distanciaTotal);
+        } else {
+
+        }
+        return null;
+    }
+
+
+    private Double calculoAlimentacao(String tempo) {
+        int tempoInt = Integer.parseInt(tempo);
+        int tempoT = (int) Math.floor(tempoInt / 3);
+        int contador = 0;
+        int paradas = 0;
+        Double valorGasto = 0.0;
+
+        for (int i = 1; i <= tempoT; i++) {
+            contador++;
+            if (contador == 3) {
+                paradas++;
+                contador = 0;
+            }
+        }
+        valorGasto = (double) (paradas * 51); // Considerando que o veículo possuirá 2 indivíduos  e cada um gaste 25.50
+        return valorGasto;
+    }
+
+    private String converterHoras(Double tempo) {
+        int horas = tempo.intValue();
+        int minutos = (int) ((tempo - horas) * 60);
+
+        String resultado = String.format("%02d:%02d", horas, minutos);
+
+        return resultado;
+    }
+
+    public Double gastoGasolinaCarro(Double distanciaTotal){
+        Double gasto = (distanciaTotal / 15) * 5.10;
+        return gasto;
+    }
+
+    private Double gastoGasolinaMoto(Double distanciaTotal) {
+        Double gasto = (distanciaTotal / 28) * 5.10;
+        return gasto;
+    }
+
+    private Double gastoGasolinaMicroOnibus(Double distanciaTotal) {
+        Double gasto = (distanciaTotal / 4.8) * 6;
+        return gasto;
+    }
+
+    private Double gastoGasolinaOnibus(Double distanciaTotal) {
+        Double gasto = (distanciaTotal / 4) * 6;
+        return gasto;
+    }
+
+    private Double gastoGasolinaCaminhao(Double distanciaTotal) {
+        Double gasto = (distanciaTotal / 3.4) * 6;
+        return gasto;
     }
 }

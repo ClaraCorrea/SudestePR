@@ -1,5 +1,6 @@
 package mapa.SudestePR.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,10 +25,12 @@ public class Cidade {
     @Column(name = "nome")
     private String nome;
 
+    @JsonIgnore
     @ToString.Exclude
     @OneToMany(mappedBy = "cidadeInicio")
     private List<Rota> rotasSaida;
 
+    @JsonIgnore
     @ToString.Exclude
     @OneToMany(mappedBy = "cidadeFim")
     private List<Rota> rotasEntrada;
