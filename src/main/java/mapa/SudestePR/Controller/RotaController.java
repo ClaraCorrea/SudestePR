@@ -19,12 +19,6 @@ public class RotaController {
 	public void postRota(@RequestBody RotaDtoRequest rotaDto) {
 		rotaService.saveRota(rotaDto);
 	}
-
-	@GetMapping("/rota")
-	public CustomResponse getRandomCars() {
-		return new CustomResponse(true, "Operação realizada com sucesso!");
-	}
-
 	@PostMapping("/rotas")
 	public RotaResponse getRota(RotaDtoResponse rotaDtoResponse) {
 		return rotaService.getRota(rotaDtoResponse);
