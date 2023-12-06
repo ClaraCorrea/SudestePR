@@ -16,9 +16,6 @@ public class CidadeService {
 
 	@Autowired
 	private CidadeRepository cidadeRepository;
-
-    private List<Rota> rotasEntrada;
-    private List<Rota> rotasSaida;
 	
 	public void saveCidade(CidadeDtoRequest cidadeDtoRequest) {
 		Cidade cidade = new Cidade(
@@ -26,26 +23,10 @@ public class CidadeService {
 				);
 		cidadeRepository.save(cidade);
 	}
-	
-    public void adicionarArestaEntrada(Rota rotaE) {
-        this.rotasSaida.add(rotaE);
-    }
-
-    public void adicionarArestaSaida(Rota rotaS) {
-        this.rotasEntrada.add(rotaS);
-    }
 
     public List<Cidade> getCidades() {
         List<Cidade> cidades = cidadeRepository.findAll();
         return cidades;
-    }
-
-    public boolean cidadeExiste(String nomeCidade) {
-        return cidadeRepository.existsByNome(nomeCidade);
-    }
-
-    public Cidade getById(Long id) {
-        return cidadeRepository.findCidadeById(id);
     }
 
 }

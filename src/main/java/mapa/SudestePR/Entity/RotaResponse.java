@@ -10,7 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 public class RotaResponse {
     private boolean success;
-    List<Rota> Cidades_Caminho;
+    private List<Rota> Cidades_Caminho;
     private Double distancia_Total;
     private String tempo_de_Viagem;
     private Double gasto_de_Gasolina;

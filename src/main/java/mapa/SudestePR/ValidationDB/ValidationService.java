@@ -47,7 +47,7 @@ public class ValidationService {
 
         File dataSource = new File("src\\main\\resources\\DataValues.txt");
         if (!dataSource.exists()) {
-            return new CustomResponse(false, "File not found!");
+            return new CustomResponse(false, "Arquivo não encontrado!");
         }
 
         try (BufferedReader reader = new BufferedReader(new FileReader(dataSource))) {

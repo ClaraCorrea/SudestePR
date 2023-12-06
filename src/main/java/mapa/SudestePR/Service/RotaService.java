@@ -10,13 +10,10 @@ import mapa.SudestePR.DTO.RotaDtoRequest;
 import mapa.SudestePR.Entity.Rota;
 import mapa.SudestePR.Repository.RotaRepository;
 
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static org.aspectj.runtime.internal.Conversions.intValue;
 
 @Service
 public class RotaService {
@@ -25,9 +22,6 @@ public class RotaService {
     private RotaRepository rotaRepository;
     @Autowired
     private GrafoService grafoService;
-
-    @Autowired
-    private CidadeService cidadeService;
 
     public void saveRota(RotaDtoRequest rotaDtoRequest) {
         Rota rota = new Rota(
@@ -65,7 +59,6 @@ public class RotaService {
                     return new RotaResponse(false, null, null, null, null, null, "Operação falhou! Elemento nulo encontrado");
                 }
             }
-
             Double gastoGasolina = gastoGasolina(veiculo, dist);
             if (gastoGasolina == null){
                 return new RotaResponse(false, null, null, null, null, null,  "Veiculo não reconhecido");
@@ -85,11 +78,12 @@ public class RotaService {
 
     public String calculoTempo (String veiculo, Double dist){
     String tempoF = null;
-        switch (veiculo) {
+        switch (
+                veiculo.toLowerCase()) {
             case "carro":
                 Double tempo = (dist / 90);
                 tempoF = conversorTempo(tempo);
-                System.out.println("ConverterTempo "+tempo);
+                System.out.println("Tempo Convertido: "+tempo);
                 break;
             case "motocicleta", "moto":
                 tempo = (dist / 95);
@@ -106,6 +100,8 @@ public class RotaService {
             case "caminhão":
                 tempo = (dist / 75);
                 tempoF = conversorTempo(tempo);
+                break;
+            default:
                 break;
         }
         return (tempoF);

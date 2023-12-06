@@ -21,12 +21,10 @@ public class Rota {
 
     private double distancia;
 
-    // Cidade de início da rota
     @ManyToOne
     @JoinColumn(name = "cidade_inicio_id")
     private Cidade cidadeInicio;
 
-    // Cidade de destino da rota
     @ManyToOne
     @JoinColumn(name = "cidade_fim_id")
     private Cidade cidadeFim;

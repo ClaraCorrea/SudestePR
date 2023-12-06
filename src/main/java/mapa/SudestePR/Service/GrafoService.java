@@ -20,16 +20,11 @@ public class GrafoService {
     private GrafoRotaService rotaService;
     @Autowired
     private CidadeRepository cidadeRepository;
-    @Autowired
-    private RotaRepository rotaRepository;
-
-    private static final Logger logger = LoggerFactory.getLogger(GrafoService.class);
 
     private List<Cidade> cidades = new ArrayList<>();
     private List<Rota> rotas = new ArrayList<>();
 
 
-    // Método para atribuir cidades quando necessário
     private void carregarCidades() {
         if (cidades.isEmpty()) {
             this.cidades = cidadeService.getCidades();
@@ -42,24 +37,14 @@ public class GrafoService {
         }
     }
 
-    public Cidade getCidade(String nome) {
-        carregarCidades(); // Certifica-se de que as cidades estão carregadas
-        return cidades.stream()
-                .filter(cidadeDTO -> cidadeDTO.getNome().equalsIgnoreCase(nome.trim()))
-                .findFirst()
-                .orElse(null);
-    }
-
     public Rota getRotaEntreCidades(Cidade cidadeInicio, Cidade cidadeFim) {
         for (Rota rota : rotas) {
             Long cidadeInicioId = cidadeInicio.getId();
             Long cidadeFimId = cidadeFim.getId();
-            logger.info("Resultado de getRotasByCidades: {}", rotaService.getRotasByCidades(cidadeInicioId, cidadeFimId));
+            System.out.println("Resultado de getRotasByCidades: {}"+ rotaService.getRotasByCidades(cidadeInicioId, cidadeFimId));
             return (Rota) rotaService.getRotasByCidades(cidadeInicioId, cidadeFimId);
         }
-        // Adicione logs aqui para rastrear o que está acontecendo
-        logger.info("Rota não encontrada para: {} -> {}", cidadeInicio.getNome(), cidadeFim.getNome());
-
+        System.out.println("Rota não encontrada para: "+ cidadeInicio.getNome() +" , "+ cidadeFim.getNome());
         return null;
     }
 
@@ -76,8 +61,7 @@ public class GrafoService {
 
         PriorityQueue<Long> fila = new PriorityQueue<>(Comparator.comparingDouble(distancias::get));
 
-        logger.info("Número de cidades na lista: {}", cidades.size());
-        logger.info("Antes de chamar o método com o loop.");
+        System.out.println("Número de cidades na lista: {}"+ cidades.size());
         for (Cidade cidade : cidades) {
             Long cidadeId = cidade.getId();
             if (cidadeId.equals(cidadeInicioC)) {
@@ -87,17 +71,14 @@ public class GrafoService {
             }
             fila.add(cidadeId);
 
-            // Adicione logs para verificar as distâncias iniciais durante o loop
-            logger.info("Cidade: {}, ID: {}, Distância Inicial: {}", cidade.getNome(), cidadeId, distancias.get(cidadeId));
+            System.out.println("Cidade: "+cidade.getNome() + ", ID: "+ cidadeId +", Distância Inicial: "+ distancias.get(cidadeId));
         }
-        logger.info("Após chamar o método com o loop.");
-
         System.out.println("Cidade Início: " + cidadeInicioC);
         System.out.println("Cidade Fim: " + cidadeFimC);
         System.out.println("Distâncias iniciais: " + distancias);
 
         while (!fila.isEmpty()) {
-            System.out.println("Entrou no loop!");
+            System.out.println("Entrou no loop - Algoritmo de Dijkstra!");
             Long atualId = fila.poll();
             System.out.println("Processando ID atual: " + atualId);
 
@@ -105,10 +86,9 @@ public class GrafoService {
 
             if (atual == null) {
                 System.out.println("Atenção: atual é nulo para ID " + atualId);
-                continue; // Pule para a próxima iteração se atual é nulo
+                continue;
             }
 
-            // Adicione logs para verificar os valores durante o loop
             System.out.println("Processando cidade atual: " + atual.getNome());
 
             for (Rota aresta : atual.getRotasSaida()) {
@@ -116,7 +96,7 @@ public class GrafoService {
 
                 if (vizinho == null) {
                     System.out.println("Atenção: vizinho é nulo para rota de " + atual.getNome());
-                    continue; // Pule para a próxima iteração se vizinho é nulo
+                    continue;
                 }
 
                 Long vizinhoId = vizinho.getId();
@@ -140,7 +120,7 @@ public class GrafoService {
         }
         Collections.reverse(caminhoIds);
 
-        System.out.println("CaminhosIds: "+caminhoIds);
+        System.out.println("Ids Rotas: "+caminhoIds);
         List<Rota> caminho = new ArrayList<>();
         if (!caminhoIds.isEmpty()) {
             for (int i = 0; i < caminhoIds.size() - 1; i++) {
@@ -175,15 +155,12 @@ public class GrafoService {
                 .orElse(null);
     }
 
-
     private Long getIdCidadeByNome(String nome) {
         List<Cidade> cidadesList = cidadeRepository.findAll();
 
         for (Cidade cidade : cidadesList) {
-            // Adicionar logs para depuração
             System.out.println("Comparando: " + cidade.getNome() + " com " + nome);
 
-            // Verificar a correspondência, ignorando maiúsculas e minúsculas
             if (cidade.getNome().equalsIgnoreCase(nome.trim())) {
                 System.out.println("Correspondência encontrada para " + nome + ". ID: " + cidade.getId());
                 return cidade.getId();
