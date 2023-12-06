@@ -14,11 +14,7 @@ import mapa.SudestePR.Service.RotaService;
 public class RotaController {
 	@Autowired
 	private RotaService rotaService;
-	
-	@PostMapping("/post")
-	public void postRota(@RequestBody RotaDtoRequest rotaDto) {
-		rotaService.saveRota(rotaDto);
-	}
+
 	@PostMapping("/rotas")
 	public RotaResponse getRota(RotaDtoResponse rotaDtoResponse) {
 		return rotaService.getRota(rotaDtoResponse);

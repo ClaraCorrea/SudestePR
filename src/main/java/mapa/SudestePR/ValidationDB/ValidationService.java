@@ -37,9 +37,6 @@ public class ValidationService {
     @Autowired
     private RotaService rotaService;
 
-    private CidadeDtoRequest cidadeDtoRequest;
-    private RotaDtoRequest rotaDtoRequest;
-
 
     public CustomResponse postAll() throws FileNotFoundException, IOException {
         List<Cidade> cidades = new ArrayList<>();
@@ -47,7 +44,7 @@ public class ValidationService {
 
         File dataSource = new File("src\\main\\resources\\DataValues.txt");
         if (!dataSource.exists()) {
-            return new CustomResponse(false, "File not found!");
+            return new CustomResponse(false, "Arquivo não encontrado!");
         }
 
         try (BufferedReader reader = new BufferedReader(new FileReader(dataSource))) {
@@ -70,10 +67,6 @@ public class ValidationService {
         if (cidades.isEmpty() && rotas.isEmpty()) {
             return new CustomResponse(false, "Arquivo vazio ou com formato incorreto!");
         }
-
-        cidadeRepository.saveAll(cidades);
-        rotaRepository.saveAll(rotas);
-
         return new CustomResponse(true, "Operação realizada com sucesso!");
     }
 
@@ -106,7 +99,6 @@ public class ValidationService {
         }
     }
 
-
     private Cidade getCidadePorNome(String nome) {
         List<Cidade> cidadesList = cidadeRepository.findAll();
         for (Cidade cidade : cidadesList) {
@@ -124,7 +116,7 @@ public class ValidationService {
         }
     }
 
-    private boolean validationDBRota() {
+    public boolean validationDBRota() {
         return rotaRepository.count() == 0;
     }
 
