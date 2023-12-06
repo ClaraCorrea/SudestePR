@@ -99,6 +99,8 @@ public class RotaService {
                 tempo = (dist / 75);
                 tempoF = conversorTempo(tempo);
                 break;
+            default:
+                break;
         }
         return (tempoF);
     }
